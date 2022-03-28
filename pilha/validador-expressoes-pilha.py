@@ -40,20 +40,47 @@ class Pilha:
         else:
             return -1
 
-    def validacao(self, f):
-        pilha = Pilha(len(s))
-        fechaAbre = {"}":"{", ")":"(", "]":"["}
+    def validacao(self, f):    
+        stack = []
+        x = 0
+        while x < len(f):
+            if f[x] == "(":
+                stack.append("(")
 
-        for c in f:
-            if c in fechaAbre:
-                if pilha and pilha.topo == fechaAbre[c]:
-                    pilha.desempilhar()
+            if f[x] == "[":
+                stack.append("[")
+
+            if f[x] == "{":
+                stack.append("{")
+
+            if f[x] == ")":
+                if len(stack) > 0:
+                    top = stack.pop()
                 else:
-                    return False
-            else:
-                pilha.empilhar(c)
+                    stack.append(")")  
+                    break
 
-        if not pilha:
+            if f[x] == "]":
+                if len(stack) > 0:
+                    top = stack.pop()
+                else:
+                    stack.append("]") 
+                    break
+
+            if f[x] == "}":
+                if len(stack) > 0:
+                    top = stack.pop()
+                else:
+                    stack.append("}") 
+                    break
+            x += 1
+
+        if len(stack) == 0:
             return True
         else:
             return False
+
+frase = str(input("Digite a sequência de caracteres a validar:"))
+quantidade = len(frase)
+pilha = Pilha(quantidade)
+print(f"A expressão é válida? {pilha.validacao(frase)}")
