@@ -1,16 +1,15 @@
 # carros estacionados
 pilha = [4932, 2423, 9877, 9999, 1000, 3443] 
-placa_a_sair = 1000
+placa_a_sair = 2423
 
-def remove_carro(pilha, placa_desejada):
-    carros_para_retirar = 0
+def remove_carro(pilha, placa_a_sair):
+    carros_para_retirar = []
     for p in pilha[::-1]:
         if p == placa_a_sair: # Caso o carro esteja estacionado
-            indice = pilha.index(p)
-            return pilha[indice+1:]
+            return carros_para_retirar
         else:
-            carros_para_retirar += 1
+            carros_para_retirar.append(p)
     
     print("Não existe carro com tal placa")
 
-print(remove_carro(pilha, placa_a_sair))
+print(f"Carros a saírem: {remove_carro(pilha, placa_a_sair)}")
